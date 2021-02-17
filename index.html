@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css" type="text/css">
+    <style>
+      .map {
+        height: 400px;
+        width: 100%;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
+    <script src="./js/proj4.js"></script>
+    <title>WMS Skærmkort fra Datafordeleren</title>
+  </head>
+
+  <body>
+    <h2>WMS Skærmkort fra Datafordeleren</h2>
+    <div id="map" class="map"></div>    
+  </body>
+  
+  <script type="text/javascript"> 
+
+    proj4.defs('EPSG:25832', "+proj=utm +zone=32 +ellps=GRS80 +units=m +no_defs");
+    ol.proj.proj4.register(proj4);
+    var dkProjection = ol.proj.get('EPSG:25832');
+    dkProjection.setExtent([120000, 5661139.2, 1378291.2, 6500000]);
+
+    var map = new ol.Map({
+      target: 'map',
+      layers: [new ol.layer.Tile({  
+        title:'WMS skærmkort (DAF)',    
+        type:'base',
+        visible: true, 
+        source: new ol.source.TileWMS({       
+            url: 'https://services.datafordeler.dk/Dkskaermkort/topo_skaermkort/1.0.0/wms?username=KEXVKJDPAA&password=DAFTest777!',
+            params: {
+            'LAYERS':'dtk_skaermkort',
+            'VERSION':'1.1.1',
+            'TRANSPARENT':'FALSE',
+            'FORMAT': "image/png",
+            'STYLES':'' 
+            },      
+            attributions: '<p>Kort fra <a href="https://datafordeler.dk" target="_blank">Datafordeleren</a>.'
+        })
+      })
+      ],
+      view: new ol.View({
+        minZoom: 2,
+        maxZoom: 13,
+        center: [722125.86, 6178892.29], 
+        zoom: 10, 
+        resolutions: [1638.4, 819.2, 409.6, 204.8, 102.4, 51.2, 25.6, 12.8, 6.4, 3.2, 1.6, 0.8, 0.4, 0.2, 0.1], 
+        projection: dkProjection 
+      })
+    });
+
+  </script>
+
+</html>
