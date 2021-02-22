@@ -5,7 +5,7 @@ Kodeeksemplet er baseret på kortbiblioteket [OpenLayers](https://openlayers.org
 ## Installation
 
 * Klon skaermkortwms repositoriet
-* Din tjenestebrugers username og password indsætter som queryparameter i WMS tjenestens URL. Linje 36 i index.html.
+* Din tjenestebrugers username og password indsættes som queryparameter i WMS tjenestens URL. Linje 36 i index.html.
 
 ## Vis lokalt
 
